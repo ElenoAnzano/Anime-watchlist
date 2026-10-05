@@ -1,0 +1,195 @@
+[
+  {
+    "id": "dropTable.Anime",
+    "label": "Drop table \"Anime\"",
+    "operationClass": "destructive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Anime"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Anime\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Anime\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "drop table \"Anime\"",
+        "sql": "DROP TABLE \"public\".\"Anime\""
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Anime\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Anime\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.Comment",
+    "label": "Create table \"Comment\"",
+    "summary": "Creates table \"Comment\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Comment"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Comment\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Comment\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Comment\"",
+        "sql": "CREATE TABLE \"public\".\"Comment\" (\n  \"animeId\" int4 NOT NULL,\n  \"content\" text NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Comment\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Comment\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.Rating",
+    "label": "Create table \"Rating\"",
+    "summary": "Creates table \"Rating\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Rating"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Rating\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Rating\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Rating\"",
+        "sql": "CREATE TABLE \"public\".\"Rating\" (\n  \"animeId\" int4 NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  \"score\" int4 NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Rating\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Rating\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.Comment.Comment_animeId_idx_46bb9889",
+    "label": "Create index \"Comment_animeId_idx_46bb9889\" on \"Comment\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "Comment_animeId_idx_46bb9889",
+        "table": "Comment"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"Comment_animeId_idx_46bb9889\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Comment_animeId_idx_46bb9889\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"Comment_animeId_idx_46bb9889\"",
+        "sql": "CREATE INDEX \"Comment_animeId_idx_46bb9889\" ON \"public\".\"Comment\" (\"animeId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"Comment_animeId_idx_46bb9889\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Comment_animeId_idx_46bb9889\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.Rating.Rating_animeId_idx_46bb9889",
+    "label": "Create index \"Rating_animeId_idx_46bb9889\" on \"Rating\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "Rating_animeId_idx_46bb9889",
+        "table": "Rating"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"Rating_animeId_idx_46bb9889\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Rating_animeId_idx_46bb9889\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"Rating_animeId_idx_46bb9889\"",
+        "sql": "CREATE INDEX \"Rating_animeId_idx_46bb9889\" ON \"public\".\"Rating\" (\"animeId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"Rating_animeId_idx_46bb9889\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Rating_animeId_idx_46bb9889\""
+        ]
+      }
+    ]
+  }
+]

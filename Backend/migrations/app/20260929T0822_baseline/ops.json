@@ -1,0 +1,58 @@
+[
+  {
+    "id": "schema.public",
+    "label": "Create schema \"public\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Create schema \"public\"",
+        "sql": "CREATE SCHEMA IF NOT EXISTS \"public\"",
+        "params": []
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "table.Anime",
+    "label": "Create table \"Anime\"",
+    "summary": "Creates table \"Anime\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "Anime"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"Anime\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Anime\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"Anime\"",
+        "sql": "CREATE TABLE \"public\".\"Anime\" (\n  \"id\" SERIAL NOT NULL,\n  \"status\" text NOT NULL,\n  \"title\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"Anime\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"Anime\""
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc && tsc-alias",
+    "start": "node ./dist/server.js",
+    "db:generate": "prisma contract emit",
+    "db:init": "prisma db init",
+    "db:update": "prisma db update",
+    "db:verify": "prisma db verify",
+    "migration:plan": "prisma migration plan",
+    "db:migrate": "prisma db migrate",
+    "postinstall": "prisma skills sync || exit 0"
+  },
+  "keywords": [],
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "@prisma/orm-postgres": "^8.0.0-rc.13",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "nodemailer": "^10.0.12",
+    "pg": "^8.23.0",
+    "temporal-polyfill": "^1.0.5",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^26.6.3",
+    "@types/nodemailer": "^8.0.2",
+    "@types/pg": "^8.23.1",
+    "prisma": "^8.0.0-rc.17",
+    "tsc-alias": "^1.9.5",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3"
+  }
+}
