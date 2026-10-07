@@ -1,0 +1,83 @@
+[
+  {
+    "id": "table.WatchlistItem",
+    "label": "Create table \"WatchlistItem\"",
+    "summary": "Creates table \"WatchlistItem\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "WatchlistItem"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"WatchlistItem\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"WatchlistItem\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"WatchlistItem\"",
+        "sql": "CREATE TABLE \"public\".\"WatchlistItem\" (\n  \"animeId\" int4 NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"id\" SERIAL NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"WatchlistItem\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"WatchlistItem\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.WatchlistItem.WatchlistItem_animeId_key",
+    "label": "Add unique constraint on \"WatchlistItem\" (animeId)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "WatchlistItem_animeId_key",
+        "table": "WatchlistItem"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"WatchlistItem_animeId_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "WatchlistItem_animeId_key",
+          "public",
+          "\"public\".\"WatchlistItem\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"WatchlistItem_animeId_key\"",
+        "sql": "ALTER TABLE \"public\".\"WatchlistItem\" ADD CONSTRAINT \"WatchlistItem_animeId_key\" UNIQUE (\"animeId\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"WatchlistItem_animeId_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "WatchlistItem_animeId_key",
+          "public",
+          "\"public\".\"WatchlistItem\""
+        ]
+      }
+    ]
+  }
+]

@@ -1,17 +1,82 @@
 // use prisma-8
 
+enum AnimeType {
+  @@type("pg/text@1")
+  TV    = "TV"
+  Movie = "Movie"
+}
+
+// Stored values are the display names the frontend shows, so existing rows
+// and API responses are unchanged. Every genre used by the seed data must be
+// listed here, or the database's CHECK constraint rejects the row.
+enum Genre {
+  @@type("pg/text@1")
+  Action       = "Action"
+  Adventure    = "Adventure"
+  Comedy       = "Comedy"
+  Drama        = "Drama"
+  Fantasy      = "Fantasy"
+  Horror       = "Horror"
+  Isekai       = "Isekai"
+  Mystery      = "Mystery"
+  Romance      = "Romance"
+  SciFi        = "Sci-Fi"
+  SliceOfLife  = "Slice of Life"
+  Supernatural = "Supernatural"
+}
+
+// Anime is the parent record. Episodes, comments, ratings and the watchlist
+// entry all reference it through animeId, enforced by a foreign key.
+// IDs are assigned explicitly (see src/scripts/seed.ts) so they match the
+// animeId values already stored in Rating, Comment and WatchlistItem.
+model Anime {
+  id            Int            @id
+  title         String
+  description   String
+  image         String
+  genre         Genre[]
+  type          AnimeType
+  episodes      Episode[]
+  comments      Comment[]
+  ratings       Rating[]
+  // The watchlist is shared (no user accounts), so an anime is either on it
+  // or not: at most one WatchlistItem per anime.
+  watchlistItem WatchlistItem?
+}
+
+model Episode {
+  id            Int    @id
+  animeId       Int
+  anime         Anime  @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  episodeNumber Int
+  title         String
+  youtubeId     String
+
+  @@unique([animeId, episodeNumber])
+  @@index([animeId])
+}
+
 model Rating {
   id        Int      @id @default(autoincrement())
   animeId   Int
+  anime     Anime    @relation(fields: [animeId], references: [id], onDelete: Cascade)
   score     Int
   createdAt DateTime @default(now())
 
   @@index([animeId])
 }
 
+model WatchlistItem {
+  id        Int      @id @default(autoincrement())
+  animeId   Int      @unique
+  anime     Anime    @relation(fields: [animeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
+
 model Comment {
   id        Int      @id @default(autoincrement())
   animeId   Int
+  anime     Anime    @relation(fields: [animeId], references: [id], onDelete: Cascade)
   content   String
   createdAt DateTime @default(now())
 

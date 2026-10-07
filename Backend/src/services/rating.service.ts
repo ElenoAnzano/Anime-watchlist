@@ -12,7 +12,7 @@ export interface RatingSummary {
 }
 
 export async function createRating(animeId: number, score: number) {
-  assertAnimeExists(animeId);
+  await assertAnimeExists(animeId);
 
   if (!Number.isInteger(score) || score < MIN_SCORE || score > MAX_SCORE) {
     throw new BadRequestError(
@@ -26,7 +26,7 @@ export async function createRating(animeId: number, score: number) {
 export async function getRatingSummary(
   animeId: number,
 ): Promise<RatingSummary> {
-  assertAnimeExists(animeId);
+  await assertAnimeExists(animeId);
   const result = await ratingRepository.getRatingSummaryData(animeId);
 
   return {

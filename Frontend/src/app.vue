@@ -6,10 +6,17 @@ const animeStore = useAnimeStore()
 const apiError = ref('')
 
 onMounted(async () => {
-  try {
-    await animeStore.loadRatings()
-  } catch (e) {
-    apiError.value = (e as Error).message
+  // allSettled so `loading` only turns off once every request has finished.
+  const results = await Promise.allSettled([
+    animeStore.loadAnime(),
+    animeStore.loadWatchlist(),
+    animeStore.loadRatings(),
+  ])
+  animeStore.loading = false
+
+  const failed = results.find((r): r is PromiseRejectedResult => r.status === 'rejected')
+  if (failed) {
+    apiError.value = (failed.reason as Error).message
   }
 })
 </script>
@@ -29,7 +36,7 @@ onMounted(async () => {
   </header>
 
   <p v-if="apiError" class="api-banner">
-    {{ apiError }} Ratings and comments won't load until it is.
+    {{ apiError }} Anime, your watchlist, ratings and comments won't load until it is.
   </p>
 
   <RouterView />

@@ -1,0 +1,170 @@
+[
+  {
+    "id": "checkConstraint.Anime.Anime_genre_check_12e15c29",
+    "label": "Add check constraint \"Anime_genre_check_12e15c29\" on \"Anime\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "checkConstraint",
+        "name": "Anime_genre_check_12e15c29",
+        "table": "Anime"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"Anime_genre_check_12e15c29\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Anime_genre_check_12e15c29",
+          "public",
+          "\"public\".\"Anime\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add check constraint \"Anime_genre_check_12e15c29\"",
+        "sql": "ALTER TABLE \"public\".\"Anime\" ADD CONSTRAINT \"Anime_genre_check_12e15c29\" CHECK (\"genre\"::text[] <@ ARRAY['Action', 'Adventure', 'Comedy', 'Drama', 'Fantasy', 'Horror', 'Isekai', 'Mystery', 'Romance', 'Sci-Fi', 'Slice of Life', 'Supernatural']::text[])"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"Anime_genre_check_12e15c29\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Anime_genre_check_12e15c29",
+          "public",
+          "\"public\".\"Anime\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.Comment.Comment_animeId_fkey",
+    "label": "Add foreign key \"Comment_animeId_fkey\" on \"Comment\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "Comment_animeId_fkey",
+        "table": "Comment"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"Comment_animeId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Comment_animeId_fkey",
+          "public",
+          "\"public\".\"Comment\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"Comment_animeId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"Comment\"\nADD CONSTRAINT \"Comment_animeId_fkey\"\nFOREIGN KEY (\"animeId\")\nREFERENCES \"public\".\"Anime\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"Comment_animeId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Comment_animeId_fkey",
+          "public",
+          "\"public\".\"Comment\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.Rating.Rating_animeId_fkey",
+    "label": "Add foreign key \"Rating_animeId_fkey\" on \"Rating\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "Rating_animeId_fkey",
+        "table": "Rating"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"Rating_animeId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Rating_animeId_fkey",
+          "public",
+          "\"public\".\"Rating\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"Rating_animeId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"Rating\"\nADD CONSTRAINT \"Rating_animeId_fkey\"\nFOREIGN KEY (\"animeId\")\nREFERENCES \"public\".\"Anime\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"Rating_animeId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "Rating_animeId_fkey",
+          "public",
+          "\"public\".\"Rating\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.WatchlistItem.WatchlistItem_animeId_fkey",
+    "label": "Add foreign key \"WatchlistItem_animeId_fkey\" on \"WatchlistItem\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "WatchlistItem_animeId_fkey",
+        "table": "WatchlistItem"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"WatchlistItem_animeId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "WatchlistItem_animeId_fkey",
+          "public",
+          "\"public\".\"WatchlistItem\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"WatchlistItem_animeId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"WatchlistItem\"\nADD CONSTRAINT \"WatchlistItem_animeId_fkey\"\nFOREIGN KEY (\"animeId\")\nREFERENCES \"public\".\"Anime\" (\"id\")\nON DELETE CASCADE"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"WatchlistItem_animeId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "WatchlistItem_animeId_fkey",
+          "public",
+          "\"public\".\"WatchlistItem\""
+        ]
+      }
+    ]
+  }
+]

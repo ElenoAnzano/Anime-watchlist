@@ -34,7 +34,7 @@ import type {
 } from '@prisma/orm-postgres/contract/types';
 
 export type StorageHash =
-  StorageHashBase<'f38202e107506a1ac1c57911b5dad8d1cd618e078354e7097604bc9ab7fc0e4e'>;
+  StorageHashBase<'f61fd8fbde591c58a868219ad436e9da5a99518a9d49f2287c8acb047fb89045'>;
 export type ExecutionHash = ExecutionHashBase<string>;
 export type ProfileHash =
   ProfileHashBase<'3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2'>;
@@ -249,27 +249,88 @@ type DefaultLiteralValue<CodecId extends string, Encoded> = CodecId extends keyo
 
 export type FieldOutputTypes = {
   readonly public: {
+    readonly Anime: {
+      readonly description: CodecTypes['pg/text@1']['output'];
+      readonly genre: ReadonlyArray<
+        | 'Action'
+        | 'Adventure'
+        | 'Comedy'
+        | 'Drama'
+        | 'Fantasy'
+        | 'Horror'
+        | 'Isekai'
+        | 'Mystery'
+        | 'Romance'
+        | 'Sci-Fi'
+        | 'Slice of Life'
+        | 'Supernatural'
+      >;
+      readonly id: CodecTypes['pg/int4@1']['output'];
+      readonly image: CodecTypes['pg/text@1']['output'];
+      readonly title: CodecTypes['pg/text@1']['output'];
+      readonly type: 'TV' | 'Movie';
+    };
     readonly Comment: {
       readonly animeId: CodecTypes['pg/int4@1']['output'];
       readonly content: CodecTypes['pg/text@1']['output'];
       readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
       readonly id: CodecTypes['pg/int4@1']['output'];
     };
+    readonly Episode: {
+      readonly animeId: CodecTypes['pg/int4@1']['output'];
+      readonly episodeNumber: CodecTypes['pg/int4@1']['output'];
+      readonly id: CodecTypes['pg/int4@1']['output'];
+      readonly title: CodecTypes['pg/text@1']['output'];
+      readonly youtubeId: CodecTypes['pg/text@1']['output'];
+    };
     readonly Rating: {
       readonly animeId: CodecTypes['pg/int4@1']['output'];
       readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
       readonly id: CodecTypes['pg/int4@1']['output'];
       readonly score: CodecTypes['pg/int4@1']['output'];
+    };
+    readonly WatchlistItem: {
+      readonly animeId: CodecTypes['pg/int4@1']['output'];
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
+      readonly id: CodecTypes['pg/int4@1']['output'];
     };
   };
 };
 export type FieldInputTypes = {
   readonly public: {
+    readonly Anime: {
+      readonly description: CodecTypes['pg/text@1']['input'];
+      readonly genre: ReadonlyArray<
+        | 'Action'
+        | 'Adventure'
+        | 'Comedy'
+        | 'Drama'
+        | 'Fantasy'
+        | 'Horror'
+        | 'Isekai'
+        | 'Mystery'
+        | 'Romance'
+        | 'Sci-Fi'
+        | 'Slice of Life'
+        | 'Supernatural'
+      >;
+      readonly id: CodecTypes['pg/int4@1']['input'];
+      readonly image: CodecTypes['pg/text@1']['input'];
+      readonly title: CodecTypes['pg/text@1']['input'];
+      readonly type: 'TV' | 'Movie';
+    };
     readonly Comment: {
       readonly animeId: CodecTypes['pg/int4@1']['input'];
       readonly content: CodecTypes['pg/text@1']['input'];
       readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['input'];
       readonly id: CodecTypes['pg/int4@1']['input'];
+    };
+    readonly Episode: {
+      readonly animeId: CodecTypes['pg/int4@1']['input'];
+      readonly episodeNumber: CodecTypes['pg/int4@1']['input'];
+      readonly id: CodecTypes['pg/int4@1']['input'];
+      readonly title: CodecTypes['pg/text@1']['input'];
+      readonly youtubeId: CodecTypes['pg/text@1']['input'];
     };
     readonly Rating: {
       readonly animeId: CodecTypes['pg/int4@1']['input'];
@@ -277,15 +338,48 @@ export type FieldInputTypes = {
       readonly id: CodecTypes['pg/int4@1']['input'];
       readonly score: CodecTypes['pg/int4@1']['input'];
     };
+    readonly WatchlistItem: {
+      readonly animeId: CodecTypes['pg/int4@1']['input'];
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['input'];
+      readonly id: CodecTypes['pg/int4@1']['input'];
+    };
   };
 };
 export type StorageColumnTypes = {
   readonly public: {
+    readonly Anime: {
+      readonly description: CodecTypes['pg/text@1']['output'];
+      readonly genre: ReadonlyArray<
+        | 'Action'
+        | 'Adventure'
+        | 'Comedy'
+        | 'Drama'
+        | 'Fantasy'
+        | 'Horror'
+        | 'Isekai'
+        | 'Mystery'
+        | 'Romance'
+        | 'Sci-Fi'
+        | 'Slice of Life'
+        | 'Supernatural'
+      >;
+      readonly id: CodecTypes['pg/int4@1']['output'];
+      readonly image: CodecTypes['pg/text@1']['output'];
+      readonly title: CodecTypes['pg/text@1']['output'];
+      readonly type: 'TV' | 'Movie';
+    };
     readonly Comment: {
       readonly animeId: CodecTypes['pg/int4@1']['output'];
       readonly content: CodecTypes['pg/text@1']['output'];
       readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
       readonly id: CodecTypes['pg/int4@1']['output'];
+    };
+    readonly Episode: {
+      readonly animeId: CodecTypes['pg/int4@1']['output'];
+      readonly episodeNumber: CodecTypes['pg/int4@1']['output'];
+      readonly id: CodecTypes['pg/int4@1']['output'];
+      readonly title: CodecTypes['pg/text@1']['output'];
+      readonly youtubeId: CodecTypes['pg/text@1']['output'];
     };
     readonly Rating: {
       readonly animeId: CodecTypes['pg/int4@1']['output'];
@@ -293,15 +387,48 @@ export type StorageColumnTypes = {
       readonly id: CodecTypes['pg/int4@1']['output'];
       readonly score: CodecTypes['pg/int4@1']['output'];
     };
+    readonly WatchlistItem: {
+      readonly animeId: CodecTypes['pg/int4@1']['output'];
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
+      readonly id: CodecTypes['pg/int4@1']['output'];
+    };
   };
 };
 export type StorageColumnInputTypes = {
   readonly public: {
+    readonly Anime: {
+      readonly description: CodecTypes['pg/text@1']['input'];
+      readonly genre: ReadonlyArray<
+        | 'Action'
+        | 'Adventure'
+        | 'Comedy'
+        | 'Drama'
+        | 'Fantasy'
+        | 'Horror'
+        | 'Isekai'
+        | 'Mystery'
+        | 'Romance'
+        | 'Sci-Fi'
+        | 'Slice of Life'
+        | 'Supernatural'
+      >;
+      readonly id: CodecTypes['pg/int4@1']['input'];
+      readonly image: CodecTypes['pg/text@1']['input'];
+      readonly title: CodecTypes['pg/text@1']['input'];
+      readonly type: 'TV' | 'Movie';
+    };
     readonly Comment: {
       readonly animeId: CodecTypes['pg/int4@1']['input'];
       readonly content: CodecTypes['pg/text@1']['input'];
       readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['input'];
       readonly id: CodecTypes['pg/int4@1']['input'];
+    };
+    readonly Episode: {
+      readonly animeId: CodecTypes['pg/int4@1']['input'];
+      readonly episodeNumber: CodecTypes['pg/int4@1']['input'];
+      readonly id: CodecTypes['pg/int4@1']['input'];
+      readonly title: CodecTypes['pg/text@1']['input'];
+      readonly youtubeId: CodecTypes['pg/text@1']['input'];
     };
     readonly Rating: {
       readonly animeId: CodecTypes['pg/int4@1']['input'];
@@ -309,30 +436,82 @@ export type StorageColumnInputTypes = {
       readonly id: CodecTypes['pg/int4@1']['input'];
       readonly score: CodecTypes['pg/int4@1']['input'];
     };
+    readonly WatchlistItem: {
+      readonly animeId: CodecTypes['pg/int4@1']['input'];
+      readonly createdAt: CodecTypes['pg/timestamptz-temporal@1']['input'];
+      readonly id: CodecTypes['pg/int4@1']['input'];
+    };
   };
 };
 
 export namespace Models {
+  export type public_Anime = {
+    description: CodecTypes['pg/text@1']['output'];
+    genre: ReadonlyArray<
+      | 'Action'
+      | 'Adventure'
+      | 'Comedy'
+      | 'Drama'
+      | 'Fantasy'
+      | 'Horror'
+      | 'Isekai'
+      | 'Mystery'
+      | 'Romance'
+      | 'Sci-Fi'
+      | 'Slice of Life'
+      | 'Supernatural'
+    >;
+    id: CodecTypes['pg/int4@1']['output'];
+    image: CodecTypes['pg/text@1']['output'];
+    title: CodecTypes['pg/text@1']['output'];
+    type: 'TV' | 'Movie';
+    comments: public_Comment[];
+    episodes: public_Episode[];
+    ratings: public_Rating[];
+    watchlistItem: public_WatchlistItem | null;
+    readonly [RelationKeys]?: 'comments' | 'episodes' | 'ratings' | 'watchlistItem';
+  };
   export type public_Comment = {
     animeId: CodecTypes['pg/int4@1']['output'];
     content: CodecTypes['pg/text@1']['output'];
     createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
     id: CodecTypes['pg/int4@1']['output'];
-    readonly [RelationKeys]?: never;
+    anime: public_Anime;
+    readonly [RelationKeys]?: 'anime';
+  };
+  export type public_Episode = {
+    animeId: CodecTypes['pg/int4@1']['output'];
+    episodeNumber: CodecTypes['pg/int4@1']['output'];
+    id: CodecTypes['pg/int4@1']['output'];
+    title: CodecTypes['pg/text@1']['output'];
+    youtubeId: CodecTypes['pg/text@1']['output'];
+    anime: public_Anime;
+    readonly [RelationKeys]?: 'anime';
   };
   export type public_Rating = {
     animeId: CodecTypes['pg/int4@1']['output'];
     createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
     id: CodecTypes['pg/int4@1']['output'];
     score: CodecTypes['pg/int4@1']['output'];
-    readonly [RelationKeys]?: never;
+    anime: public_Anime;
+    readonly [RelationKeys]?: 'anime';
+  };
+  export type public_WatchlistItem = {
+    animeId: CodecTypes['pg/int4@1']['output'];
+    createdAt: CodecTypes['pg/timestamptz-temporal@1']['output'];
+    id: CodecTypes['pg/int4@1']['output'];
+    anime: public_Anime;
+    readonly [RelationKeys]?: 'anime';
   };
 }
 
 export declare const models: {
   public: {
+    Anime: Models.public_Anime;
     Comment: Models.public_Comment;
+    Episode: Models.public_Episode;
     Rating: Models.public_Rating;
+    WatchlistItem: Models.public_WatchlistItem;
   };
 };
 
@@ -354,6 +533,44 @@ type ContractBase = Omit<
         readonly kind: 'postgres-schema';
         readonly entries: {
           readonly table: {
+            readonly Anime: {
+              columns: {
+                readonly description: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly genre: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly id: {
+                  readonly nativeType: 'int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                };
+                readonly image: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly title: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly type: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+              };
+              primaryKey: { readonly columns: readonly ['id'] };
+              uniques: readonly [];
+              indexes: readonly [];
+              foreignKeys: readonly [];
+            };
             readonly Comment: {
               columns: {
                 readonly animeId: {
@@ -392,7 +609,73 @@ type ContractBase = Omit<
                   readonly unique: false;
                 },
               ];
-              foreignKeys: readonly [];
+              foreignKeys: readonly [
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Comment';
+                    readonly columns: readonly ['animeId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Anime';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+              ];
+            };
+            readonly Episode: {
+              columns: {
+                readonly animeId: {
+                  readonly nativeType: 'int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                };
+                readonly episodeNumber: {
+                  readonly nativeType: 'int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                };
+                readonly id: {
+                  readonly nativeType: 'int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                };
+                readonly title: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+                readonly youtubeId: {
+                  readonly nativeType: 'text';
+                  readonly codecId: 'pg/text@1';
+                  readonly nullable: false;
+                };
+              };
+              primaryKey: { readonly columns: readonly ['id'] };
+              uniques: readonly [{ readonly columns: readonly ['animeId', 'episodeNumber'] }];
+              indexes: readonly [
+                {
+                  readonly name: 'Episode_animeId_idx_46bb9889';
+                  readonly prefix: 'Episode_animeId_idx';
+                  readonly columns: readonly ['animeId'];
+                  readonly unique: false;
+                },
+              ];
+              foreignKeys: readonly [
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Episode';
+                    readonly columns: readonly ['animeId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Anime';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+              ];
             };
             readonly Rating: {
               columns: {
@@ -432,7 +715,84 @@ type ContractBase = Omit<
                   readonly unique: false;
                 },
               ];
-              foreignKeys: readonly [];
+              foreignKeys: readonly [
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Rating';
+                    readonly columns: readonly ['animeId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Anime';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+              ];
+            };
+            readonly WatchlistItem: {
+              columns: {
+                readonly animeId: {
+                  readonly nativeType: 'int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                };
+                readonly createdAt: {
+                  readonly nativeType: 'timestamptz';
+                  readonly codecId: 'pg/timestamptz-temporal@1';
+                  readonly nullable: false;
+                  readonly default: { readonly kind: 'function'; readonly expression: 'now()' };
+                };
+                readonly id: {
+                  readonly nativeType: 'int4';
+                  readonly codecId: 'pg/int4@1';
+                  readonly nullable: false;
+                  readonly default: {
+                    readonly kind: 'function';
+                    readonly expression: 'autoincrement()';
+                  };
+                };
+              };
+              primaryKey: { readonly columns: readonly ['id'] };
+              uniques: readonly [{ readonly columns: readonly ['animeId'] }];
+              indexes: readonly [];
+              foreignKeys: readonly [
+                {
+                  readonly source: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'WatchlistItem';
+                    readonly columns: readonly ['animeId'];
+                  };
+                  readonly target: {
+                    readonly namespaceId: 'public' & NamespaceId;
+                    readonly tableName: 'Anime';
+                    readonly columns: readonly ['id'];
+                  };
+                },
+              ];
+            };
+          };
+          readonly valueSet: {
+            readonly AnimeType: {
+              readonly kind: 'valueSet';
+              readonly values: readonly ['TV', 'Movie'];
+            };
+            readonly Genre: {
+              readonly kind: 'valueSet';
+              readonly values: readonly [
+                'Action',
+                'Adventure',
+                'Comedy',
+                'Drama',
+                'Fantasy',
+                'Horror',
+                'Isekai',
+                'Mystery',
+                'Romance',
+                'Sci-Fi',
+                'Slice of Life',
+                'Supernatural',
+              ];
             };
           };
         };
@@ -445,13 +805,107 @@ type ContractBase = Omit<
   readonly target: 'postgres';
   readonly targetFamily: 'sql';
   readonly roots: {
+    readonly Anime: { readonly namespace: 'public' & NamespaceId; readonly model: 'Anime' };
     readonly Comment: { readonly namespace: 'public' & NamespaceId; readonly model: 'Comment' };
+    readonly Episode: { readonly namespace: 'public' & NamespaceId; readonly model: 'Episode' };
     readonly Rating: { readonly namespace: 'public' & NamespaceId; readonly model: 'Rating' };
+    readonly WatchlistItem: {
+      readonly namespace: 'public' & NamespaceId;
+      readonly model: 'WatchlistItem';
+    };
   };
   readonly domain: {
     readonly namespaces: {
       readonly public: {
         readonly models: {
+          readonly Anime: {
+            readonly fields: {
+              readonly description: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly genre: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+                readonly many: true;
+              };
+              readonly id: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+              readonly image: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly title: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly type: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+            };
+            readonly relations: {
+              readonly comments: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Comment';
+                };
+                readonly cardinality: '1:N';
+                readonly on: {
+                  readonly localFields: readonly ['id'];
+                  readonly targetFields: readonly ['animeId'];
+                };
+              };
+              readonly episodes: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Episode';
+                };
+                readonly cardinality: '1:N';
+                readonly on: {
+                  readonly localFields: readonly ['id'];
+                  readonly targetFields: readonly ['animeId'];
+                };
+              };
+              readonly ratings: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Rating';
+                };
+                readonly cardinality: '1:N';
+                readonly on: {
+                  readonly localFields: readonly ['id'];
+                  readonly targetFields: readonly ['animeId'];
+                };
+              };
+              readonly watchlistItem: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'WatchlistItem';
+                };
+                readonly cardinality: '1:1';
+                readonly nullable: true;
+                readonly on: {
+                  readonly localFields: readonly ['id'];
+                  readonly targetFields: readonly ['animeId'];
+                };
+              };
+            };
+            readonly storage: {
+              readonly table: 'Anime';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly description: { readonly column: 'description' };
+                readonly genre: { readonly column: 'genre' };
+                readonly id: { readonly column: 'id' };
+                readonly image: { readonly column: 'image' };
+                readonly title: { readonly column: 'title' };
+                readonly type: { readonly column: 'type' };
+              };
+            };
+          };
           readonly Comment: {
             readonly fields: {
               readonly animeId: {
@@ -474,7 +928,20 @@ type ContractBase = Omit<
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
               };
             };
-            readonly relations: Record<string, never>;
+            readonly relations: {
+              readonly anime: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Anime';
+                };
+                readonly cardinality: 'N:1';
+                readonly nullable: false;
+                readonly on: {
+                  readonly localFields: readonly ['animeId'];
+                  readonly targetFields: readonly ['id'];
+                };
+              };
+            };
             readonly storage: {
               readonly table: 'Comment';
               readonly namespaceId: 'public';
@@ -483,6 +950,55 @@ type ContractBase = Omit<
                 readonly content: { readonly column: 'content' };
                 readonly createdAt: { readonly column: 'createdAt' };
                 readonly id: { readonly column: 'id' };
+              };
+            };
+          };
+          readonly Episode: {
+            readonly fields: {
+              readonly animeId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+              readonly episodeNumber: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+              readonly id: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+              readonly title: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+              readonly youtubeId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/text@1' };
+              };
+            };
+            readonly relations: {
+              readonly anime: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Anime';
+                };
+                readonly cardinality: 'N:1';
+                readonly nullable: false;
+                readonly on: {
+                  readonly localFields: readonly ['animeId'];
+                  readonly targetFields: readonly ['id'];
+                };
+              };
+            };
+            readonly storage: {
+              readonly table: 'Episode';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly animeId: { readonly column: 'animeId' };
+                readonly episodeNumber: { readonly column: 'episodeNumber' };
+                readonly id: { readonly column: 'id' };
+                readonly title: { readonly column: 'title' };
+                readonly youtubeId: { readonly column: 'youtubeId' };
               };
             };
           };
@@ -508,7 +1024,20 @@ type ContractBase = Omit<
                 readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
               };
             };
-            readonly relations: Record<string, never>;
+            readonly relations: {
+              readonly anime: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Anime';
+                };
+                readonly cardinality: 'N:1';
+                readonly nullable: false;
+                readonly on: {
+                  readonly localFields: readonly ['animeId'];
+                  readonly targetFields: readonly ['id'];
+                };
+              };
+            };
             readonly storage: {
               readonly table: 'Rating';
               readonly namespaceId: 'public';
@@ -519,6 +1048,74 @@ type ContractBase = Omit<
                 readonly score: { readonly column: 'score' };
               };
             };
+          };
+          readonly WatchlistItem: {
+            readonly fields: {
+              readonly animeId: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+              readonly createdAt: {
+                readonly nullable: false;
+                readonly type: {
+                  readonly kind: 'scalar';
+                  readonly codecId: 'pg/timestamptz-temporal@1';
+                };
+              };
+              readonly id: {
+                readonly nullable: false;
+                readonly type: { readonly kind: 'scalar'; readonly codecId: 'pg/int4@1' };
+              };
+            };
+            readonly relations: {
+              readonly anime: {
+                readonly to: {
+                  readonly namespace: 'public' & NamespaceId;
+                  readonly model: 'Anime';
+                };
+                readonly cardinality: 'N:1';
+                readonly nullable: false;
+                readonly on: {
+                  readonly localFields: readonly ['animeId'];
+                  readonly targetFields: readonly ['id'];
+                };
+              };
+            };
+            readonly storage: {
+              readonly table: 'WatchlistItem';
+              readonly namespaceId: 'public';
+              readonly fields: {
+                readonly animeId: { readonly column: 'animeId' };
+                readonly createdAt: { readonly column: 'createdAt' };
+                readonly id: { readonly column: 'id' };
+              };
+            };
+          };
+        };
+        readonly enum: {
+          readonly AnimeType: {
+            readonly codecId: 'pg/text@1';
+            readonly members: readonly [
+              { readonly name: 'TV'; readonly value: 'TV' },
+              { readonly name: 'Movie'; readonly value: 'Movie' },
+            ];
+          };
+          readonly Genre: {
+            readonly codecId: 'pg/text@1';
+            readonly members: readonly [
+              { readonly name: 'Action'; readonly value: 'Action' },
+              { readonly name: 'Adventure'; readonly value: 'Adventure' },
+              { readonly name: 'Comedy'; readonly value: 'Comedy' },
+              { readonly name: 'Drama'; readonly value: 'Drama' },
+              { readonly name: 'Fantasy'; readonly value: 'Fantasy' },
+              { readonly name: 'Horror'; readonly value: 'Horror' },
+              { readonly name: 'Isekai'; readonly value: 'Isekai' },
+              { readonly name: 'Mystery'; readonly value: 'Mystery' },
+              { readonly name: 'Romance'; readonly value: 'Romance' },
+              { readonly name: 'SciFi'; readonly value: 'Sci-Fi' },
+              { readonly name: 'SliceOfLife'; readonly value: 'Slice of Life' },
+              { readonly name: 'Supernatural'; readonly value: 'Supernatural' },
+            ];
           };
         };
       };

@@ -3,8 +3,11 @@ import cors from "cors";
 import { ZodError } from "zod";
 import env from "@/config/env";
 import { HttpError } from "@/schema/errors";
+import animeRoutes from "@/routes/anime.routes";
+import episodeRoutes from "@/routes/episode.routes";
 import ratingRoutes from "@/routes/rating.routes";
 import commentRoutes from "@/routes/comment.routes";
+import watchlistRoutes from "@/routes/watchlist.routes";
 
 const app = express();
 
@@ -30,14 +33,17 @@ app.get("/", (_req, res) => {
   });
 });
 
+app.use("/api/anime", animeRoutes);
+app.use("/api/episodes", episodeRoutes);
 app.use("/api/ratings", ratingRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/watchlist", watchlistRoutes);
 
 app.use((_req, res) => {
   res.status(404).json({ error: "Not found" });
 });
 
-// Express 5 forwards rejected promises from async handlers here.
+// Express 5 forwards rejected promises from async handlers
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   if (err instanceof ZodError) {
     res.status(400).json({

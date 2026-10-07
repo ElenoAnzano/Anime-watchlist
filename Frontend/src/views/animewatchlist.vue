@@ -31,7 +31,9 @@ const filteredAnime = computed(() => {
   <main>
     <h1>{{ watchlistOnly ? 'My Watchlist' : 'Browse Anime' }}</h1>
 
-    <template v-if="watchlistOnly && animeStore.watchlist.length === 0">
+    <p v-if="animeStore.loading" class="muted">Loading anime...</p>
+
+    <template v-else-if="watchlistOnly && animeStore.watchlist.length === 0">
       <p class="muted">Your watchlist is empty.</p>
       <RouterLink to="/anime" class="button">Browse anime</RouterLink>
     </template>

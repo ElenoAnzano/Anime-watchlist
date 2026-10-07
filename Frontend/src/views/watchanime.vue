@@ -43,6 +43,10 @@ const found = computed(() => animeStore.getEpisode(Number(route.params.id)))
     </section>
   </main>
 
+  <main v-else-if="animeStore.loading">
+    <p class="muted">Loading episode...</p>
+  </main>
+
   <main v-else>
     <h1>Episode not found</h1>
     <RouterLink to="/anime" class="button">Back to all anime</RouterLink>

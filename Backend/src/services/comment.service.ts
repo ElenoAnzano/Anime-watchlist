@@ -3,7 +3,7 @@ import { assertAnimeExists } from "@/services/anime.service";
 import { BadRequestError } from "@/schema/errors";
 
 export async function createComment(animeId: number, content: string) {
-  assertAnimeExists(animeId);
+  await assertAnimeExists(animeId);
 
   const text = content.trim();
   if (!text) {
@@ -14,6 +14,6 @@ export async function createComment(animeId: number, content: string) {
 }
 
 export async function getCommentsByAnime(animeId: number) {
-  assertAnimeExists(animeId);
+  await assertAnimeExists(animeId);
   return commentRepository.getCommentsByAnime(animeId);
 }

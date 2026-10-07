@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAnimeStore } from '@/stores/anime'
 import { getRating } from '@/services/animeApi'
@@ -17,9 +17,19 @@ const inWatchlist = computed(() =>
   anime.value ? animeStore.isInWatchlist(anime.value.id) : false,
 )
 
-function toggleWatchlist() {
-  if (anime.value) {
-    animeStore.toggleWatchlist(anime.value.id)
+const watchlistSaving = ref(false)
+const watchlistError = ref('')
+
+async function toggleWatchlist() {
+  if (!anime.value) return
+  watchlistSaving.value = true
+  watchlistError.value = ''
+  try {
+    await animeStore.toggleWatchlist(anime.value.id)
+  } catch (e) {
+    watchlistError.value = (e as Error).message
+  } finally {
+    watchlistSaving.value = false
   }
 }
 
@@ -68,9 +78,14 @@ watch(
 
         <p>{{ anime.description }}</p>
 
-        <button :class="{ secondary: inWatchlist }" @click="toggleWatchlist">
+        <button
+          :class="{ secondary: inWatchlist }"
+          :disabled="watchlistSaving"
+          @click="toggleWatchlist"
+        >
           {{ inWatchlist ? '✓ Remove from My Watchlist' : '+ Add to My Watchlist' }}
         </button>
+        <p v-if="watchlistError" class="error">{{ watchlistError }}</p>
       </div>
     </section>
 
@@ -90,6 +105,10 @@ watch(
       <h2>Comments</h2>
       <CommentSection :anime-id="anime.id" />
     </section>
+  </main>
+
+  <main v-else-if="animeStore.loading">
+    <p class="muted">Loading anime...</p>
   </main>
 
   <main v-else>
